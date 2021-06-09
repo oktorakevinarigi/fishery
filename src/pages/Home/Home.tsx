@@ -1,5 +1,4 @@
 import { useEffect, useCallback } from 'react'
-import { useHistory } from "react-router-dom";
 import { Collapse, Row, Col, Button, Card, Form } from 'antd';
 // import { PlusCircleOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
@@ -23,7 +22,6 @@ const formItemLayout = {
 };
 
 const RenderHome = () => {
-  const history = useHistory()
   const dispatch = useDispatch()
   const isLoading = useSelector((state: RootStateOrAny) => state.Home.isLoading)
   const sourceArea = useSelector((state: RootStateOrAny) => state.Home.sourceArea)
