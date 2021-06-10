@@ -12,13 +12,13 @@ import CompTable from './Table'
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 6 },
+    sm: { span: 24 },
     md: { span: 5 }
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 18 },
-    md: { span: 8 }
+    sm: { span: 24 },
+    md: { span: 10 }
   },
 };
 
@@ -115,10 +115,10 @@ const RenderHome = () => {
                 />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Search
-                </Button>
-                <Button onClick={onClear}>Clear</Button>
+                <div className="space-button-search">
+                  <Button type="primary" htmlType="submit">Search</Button>
+                  <Button onClick={onClear}>Clear</Button>
+                </div>
               </Form.Item>
             </Form>
           </Collapse.Panel>

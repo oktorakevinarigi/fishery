@@ -113,7 +113,7 @@ const RenderForm = () => {
             <CompInput placeholder="Price" onChange={(e: any) => { handleState('price', e.target.value) }} />
           </Form.Item>
           <Form.Item>
-            <div style={{ width: 250, display: 'flex', justifyContent: 'space-between' }}>
+            <div className="space-button-form">
               <Button type="primary" htmlType="submit">
                 Save
             </Button>
