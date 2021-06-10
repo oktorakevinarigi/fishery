@@ -48,16 +48,21 @@ export function* fetchGetMaster(): Generator {
 export function* fetchData(): Generator {
   try {
     yield put({ type: types.HOME_SET_LOADER, value: true })
-    const getMaster: any = yield call(fetchGetMaster)
-    const resList: any = yield call(GET, url + list)
+    const stateHome: any = yield select(getStateHome)
+    if (stateHome.komoditas === '' && !stateHome.areaId && !stateHome.sizeId) {
+      const getMaster: any = yield call(fetchGetMaster)
+      const resList: any = yield call(GET, url + list)
 
-    const data = {
-      sourceArea: getMaster.sourceArea,
-      sourceSize: getMaster.sourceSize,
-      list: resList.res.map(funcMapList),
-      isLoading: false
+      const data = {
+        sourceArea: getMaster.sourceArea,
+        sourceSize: getMaster.sourceSize,
+        list: resList.res.map(funcMapList),
+        isLoading: false
+      }
+      yield put({ type: types.HOME_FETCH_DATA_GLOBAL, data })
+    } else {
+      yield call(fetchSearch)
     }
-    yield put({ type: types.HOME_FETCH_DATA_GLOBAL, data })
   } catch (err) {
     yield put({ type: types.HOME_SET_LOADER, value: false })
     throw err
@@ -69,11 +74,14 @@ export function* fetchSearch(): Generator {
     yield put({ type: types.HOME_SET_LOADER, value: true })
     const stateHome: any = yield select(getStateHome)
     let filter = {}
-    if (stateHome.areaId !== 0) {
-      const findArea = stateHome.sourceArea.find((x: any) => x.id === stateHome.areaId)
-      filter = { area_kota: findArea.label }
+    if (stateHome.komoditas !== "") {
+      filter = { komoditas: stateHome.komoditas }
     }
-    if (stateHome.sizeId !== 0) {
+    if (stateHome.areaId) {
+      const findArea = stateHome.sourceArea.find((x: any) => x.id === stateHome.areaId)
+      filter = { ...filter, area_kota: findArea.label }
+    }
+    if (stateHome.sizeId) {
       const findSize = stateHome.sourceSize.find((x: any) => x.id === stateHome.sizeId)
       filter = { ...filter, size: findSize.label }
     }
@@ -89,7 +97,7 @@ export function* fetchSearch(): Generator {
 
 export function* fetchClear(): Generator {
   try {
-    yield put({ type: types.HOME_FETCH_DATA_GLOBAL, data: { areaId: 0, sizeId: 0 } })
+    yield put({ type: types.HOME_FETCH_DATA_GLOBAL, data: { komoditas: '', areaId: null, sizeId: null } })
     yield call(fetchSearch)
   } catch (err) {
     throw err
@@ -98,8 +106,10 @@ export function* fetchClear(): Generator {
 
 export function* fetchDelete(param: { uuid: string, type: string }): Generator {
   try {
+    yield put({ type: types.HOME_SET_LOADER, value: true })
     const body = { condition: { uuid: param.uuid } }
     yield call(DELETE, url + list, body)
+    yield call(SwallSuccess, "Data deleted successfully")
     yield call(fetchSearch)
   } catch (err) {
     throw err
@@ -117,10 +127,12 @@ export function* fetchGetEdit(param: { uuid: string, type: string }): Generator 
       const area = getMaster.sourceArea.filter((x: { label: string }) => x.label === resGetData.res[0].area_kota.toUpperCase())
       const size = getMaster.sourceSize.filter((x: { label: string }) => x.label === resGetData.res[0].size)
       const data = {
+        sourceArea: getMaster.sourceArea,
+        sourceSize: getMaster.sourceSize,
         form: {
           komoditas: resGetData.res[0].komoditas,
-          areaId: area.length !== 0 ? area[0].id : 0,
-          sizeId: size.length !== 0 ? size[0].id : 0,
+          areaId: area.length !== 0 ? area[0].id : null,
+          sizeId: size.length !== 0 ? size[0].id : null,
           price: resGetData.res[0].price
         }
       }

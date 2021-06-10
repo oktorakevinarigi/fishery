@@ -23,25 +23,21 @@ export const SwalWarning = async (text: string = 'Warning', textButton: string =
   })
 }
 
-export const SwallSuccess = async () => {
+export const SwallSuccess = async (text: string = "Saved data") => {
   return await Swal.fire({
     icon: "success",
-    title: "Pesan Terkirim",
-    text: "Kartu berhasil terkirim!",
-    showCancelButton: true,
-    confirmButtonText: "Riwayat",
-    cancelButtonText: "Beranda"
+    title: "Success",
+    text,
+    confirmButtonText: "OK",
   }).then((result) => {
     return result.isDismissed
   })
 }
 
-export const SwallInfo = () => {
+export const SwallInfo = (text: string) => {
   Swal.fire({
     icon: 'info',
-    text: "Kartu akan dikirim melalui WhatsApp.",
-    timer: 1000,
-    showConfirmButton: false,
+    text: text,
   })
 }
 

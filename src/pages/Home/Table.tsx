@@ -5,6 +5,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 
 import { actHome } from '../../redux/actions'
+import { SwallInfo, SwalConfirm } from '../../utils/Sweetalert'
 
 const CompTable = () => {
   const history = useHistory()
@@ -12,11 +13,20 @@ const CompTable = () => {
   const list = useSelector((state: RootStateOrAny) => state.Home.list)
 
   const onDelete = useCallback(async (uuid: string) => {
-    dispatch(actHome.fetchDelete(uuid))
+    if (uuid) {
+      const result = await SwalConfirm({ title: 'Are you sure want to delete?', text: '' })
+      result && dispatch(actHome.fetchDelete(uuid))
+    } else {
+      SwallInfo("UUID not found")
+    }
   }, [dispatch])
 
   const onEdit = useCallback((uuid: string) => {
-    history.push(`/form/${uuid}`)
+    if (uuid) {
+      history.push(`/form/${uuid}`)
+    } else {
+      SwallInfo("UUID not found")
+    }
   }, [history])
 
   const columns = [

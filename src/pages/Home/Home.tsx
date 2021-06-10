@@ -5,6 +5,7 @@ import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import BlockUi from "react-block-ui";
 
 import { actHome } from '../../redux/actions'
+import CompInput from '../../components/Input'
 import CompSelect from '../../components/Select'
 import CompTable from './Table'
 
@@ -26,11 +27,22 @@ const RenderHome = () => {
   const isLoading = useSelector((state: RootStateOrAny) => state.Home.isLoading)
   const sourceArea = useSelector((state: RootStateOrAny) => state.Home.sourceArea)
   const sourceSize = useSelector((state: RootStateOrAny) => state.Home.sourceSize)
+  const komoditas = useSelector((state: RootStateOrAny) => state.Home.komoditas)
+  const areaId = useSelector((state: RootStateOrAny) => state.Home.areaId)
+  const sizeId = useSelector((state: RootStateOrAny) => state.Home.sizeId)
   const [form] = Form.useForm();
 
   useEffect(() => {
     dispatch(actHome.fetchData())
   }, [dispatch])
+
+  useEffect(() => {
+    form.setFieldsValue({
+      komoditas: komoditas,
+      area: areaId,
+      size: sizeId,
+    });
+  }, [areaId, sizeId, komoditas, form])
 
   const handleState = useCallback((field: string, value: string | number) => {
     dispatch(actHome.handleState(field, value))
@@ -73,6 +85,13 @@ const RenderHome = () => {
               name="form-input"
               onFinish={onFinish}
             >
+              <Form.Item
+                name="komoditas"
+                label="Komoditas"
+                rules={[{ required: false }]}
+              >
+                <CompInput placeholder="Komoditas" onChange={(e: any) => { handleState('komoditas', e.target.value) }} />
+              </Form.Item>
               <Form.Item
                 name="area"
                 label="Area"

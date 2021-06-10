@@ -8,13 +8,14 @@ const initState: IHome = {
   sourceArea: [],
   sourceSize: [],
   list: [],
-  areaId: 0,
-  sizeId: 0,
+  komoditas: '',
+  areaId: null,
+  sizeId: null,
 
   form: {
     komoditas: '',
-    areaId: 0,
-    sizeId: 0,
+    areaId: null,
+    sizeId: null,
     price: ''
   }
 };

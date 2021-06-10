@@ -10,12 +10,13 @@ export default interface IHome {
     price: string;
     size: string;
   }[];
-  areaId: number,
-  sizeId: number,
+  komoditas: string;
+  areaId: number | null;
+  sizeId: number | null;
   form: {
     komoditas: string;
-    areaId: number;
-    sizeId: number;
+    areaId: number | null;
+    sizeId: number | null;
     price: string;
   }
 }
