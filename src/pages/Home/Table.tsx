@@ -74,7 +74,7 @@ const CompTable = () => {
       columns={columns}
       dataSource={list}
       scroll={{ x: 1200 }}
-      pagination={{ pageSize: 50 }}
+      pagination={{ pageSize: 10 }}
     />
   )
 }

@@ -1,3 +1,29 @@
+
+.ant-layout-header{
+  height: 64px;
+    padding: 0 50px;
+    color: rgba(0, 0, 0, 0.85);
+    line-height: 64px;
+    background: white;
+}
+.logo-app {
+  width: 120px;
+  height: 50px;
+  img{
+    position: relative;
+    width: 50px;
+    height: 45px;
+  }
+  span{
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+.ant-layout-content {
+  flex: auto;
+  padding: 30px;
+  min-height: 83vh;
+}
 .space-button-search{
   width: 170px;
   display: flex;

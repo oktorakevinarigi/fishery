@@ -5,6 +5,7 @@ import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import BlockUi from "react-block-ui";
 
 import { actHome } from '../../redux/actions'
+import Header from '../../components/Header'
 import CompInput from '../../components/Input'
 import CompSelect from '../../components/Select'
 import CompTable from './Table'
@@ -74,71 +75,74 @@ const RenderHome = () => {
         </span>
       }
     >
-      <Card title="Fishery">
-        <Collapse collapsible="header" defaultActiveKey={['1']}>
-          <Collapse.Panel header="Search" key="1">
-            <Form
-              {...formItemLayout}
-              form={form}
-              layout={"horizontal"}
-              labelAlign="left"
-              name="form-input"
-              onFinish={onFinish}
-            >
-              <Form.Item
-                name="komoditas"
-                label="Komoditas"
-                rules={[{ required: false }]}
+      <Header>
+        <Card title="Home">
+          <Collapse collapsible="header" defaultActiveKey={['1']}>
+            <Collapse.Panel header="Search" key="1">
+              <Form
+                {...formItemLayout}
+                form={form}
+                layout={"horizontal"}
+                labelAlign="left"
+                name="form-input"
+                onFinish={onFinish}
               >
-                <CompInput placeholder="Komoditas" onChange={(e: any) => { handleState('komoditas', e.target.value) }} />
-              </Form.Item>
-              <Form.Item
-                name="area"
-                label="Area"
-              >
-                <CompSelect
-                  showSearch={true}
-                  placeholder="Select a Area"
-                  source={sourceArea}
-                  onChange={(value) => { handleState('areaId', value) }}
-                />
-              </Form.Item>
-              <Form.Item
-                name="size"
-                label="Size"
-              >
-                <CompSelect
-                  showSearch={true}
-                  placeholder="Select a Size"
-                  source={sourceSize}
-                  onChange={(value) => { handleState('sizeId', value) }}
-                />
-              </Form.Item>
-              <Form.Item>
-                <div className="space-button-search">
-                  <Button type="primary" htmlType="submit">Search</Button>
-                  <Button onClick={onClear}>Clear</Button>
-                </div>
-              </Form.Item>
-            </Form>
-          </Collapse.Panel>
-        </Collapse>
+                <Form.Item
+                  name="komoditas"
+                  label="Komoditas"
+                  rules={[{ required: false }]}
+                >
+                  <CompInput placeholder="Komoditas" onChange={(e: any) => { handleState('komoditas', e.target.value) }} />
+                </Form.Item>
+                <Form.Item
+                  name="area"
+                  label="Area"
+                >
+                  <CompSelect
+                    showSearch={true}
+                    placeholder="Select a Area"
+                    source={sourceArea}
+                    onChange={(value) => { handleState('areaId', value) }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="size"
+                  label="Size"
+                >
+                  <CompSelect
+                    showSearch={true}
+                    placeholder="Select a Size"
+                    source={sourceSize}
+                    onChange={(value) => { handleState('sizeId', value) }}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <div className="space-button-search">
+                    <Button type="primary" htmlType="submit">Search</Button>
+                    <Button onClick={onClear}>Clear</Button>
+                  </div>
+                </Form.Item>
+              </Form>
+            </Collapse.Panel>
+          </Collapse>
 
-        <Collapse collapsible="header" defaultActiveKey={['1']} style={{ margin: '20px 0' }}>
-          <Collapse.Panel header="List of Fishery" key="1">
-            {/* <Row>
+          <Collapse collapsible="header" defaultActiveKey={['1']} style={{ margin: '20px 0' }}>
+            <Collapse.Panel header="List of Fishery" key="1">
+              {/* <Row>
               <Col span={24} className="space-tb-10">
                 <Button type="primary" onClick={onAdd}><PlusCircleOutlined />ADD</Button>
               </Col>
             </Row> */}
-            <Row>
-              <Col span={24}>
-                <CompTable />
-              </Col>
-            </Row>
-          </Collapse.Panel>
-        </Collapse>
-      </Card>
+              <Row>
+                <Col span={24}>
+                  <CompTable />
+                </Col>
+              </Row>
+            </Collapse.Panel>
+          </Collapse>
+        </Card>
+      </Header>
+
     </BlockUi>
   )
 }

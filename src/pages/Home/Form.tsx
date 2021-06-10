@@ -5,6 +5,7 @@ import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { Form, Button, Card } from 'antd';
 import BlockUi from "react-block-ui";
 
+import Header from '../../components/Header'
 import CompSelect from '../../components/Select'
 import CompInput from '../../components/Input'
 import { actHome } from '../../redux/actions';
@@ -72,61 +73,63 @@ const RenderForm = () => {
         </span>
       }
     >
-      <Card title={`${id ? 'Edit' : 'Add'} Fishery`}>
-        <Form {...formItemLayout} form={form} name="form-input" labelAlign="left" onFinish={onSave}>
-          <Form.Item
-            name="komoditas"
-            label="Komoditas"
-            rules={[{ required: false }]}
-          >
-            <CompInput placeholder="Komoditas" onChange={(e: any) => { handleState('komoditas', e.target.value) }} />
-          </Form.Item>
-          <Form.Item
-            name="area"
-            label="Area"
-            rules={[{ required: true, message: 'Please select a Area!' }]}
-          >
-            <CompSelect
-              showSearch={true}
-              placeholder="Select a Area"
-              source={sourceArea}
-              onChange={(value: number) => { handleState('areaId', value) }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="size"
-            label="Size"
-            rules={[{ required: false }]}
-          >
-            <CompSelect
-              showSearch={true}
-              placeholder="Select a Size"
-              source={sourceSize}
-              onChange={(value: number) => { handleState('sizeId', value) }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="price"
-            label="Price"
-            rules={[{ required: false }]}
-          >
-            <CompInput placeholder="Price" onChange={(e: any) => { handleState('price', e.target.value) }} />
-          </Form.Item>
-          <Form.Item>
-            <div className="space-button-form">
-              <Button type="primary" htmlType="submit">
-                Save
+      <Header>
+        <Card title={`${id ? 'Edit' : 'Add'} Fishery`}>
+          <Form {...formItemLayout} form={form} name="form-input" labelAlign="left" onFinish={onSave}>
+            <Form.Item
+              name="komoditas"
+              label="Komoditas"
+              rules={[{ required: false }]}
+            >
+              <CompInput placeholder="Komoditas" onChange={(e: any) => { handleState('komoditas', e.target.value) }} />
+            </Form.Item>
+            <Form.Item
+              name="area"
+              label="Area"
+              rules={[{ required: true, message: 'Please select a Area!' }]}
+            >
+              <CompSelect
+                showSearch={true}
+                placeholder="Select a Area"
+                source={sourceArea}
+                onChange={(value: number) => { handleState('areaId', value) }}
+              />
+            </Form.Item>
+            <Form.Item
+              name="size"
+              label="Size"
+              rules={[{ required: false }]}
+            >
+              <CompSelect
+                showSearch={true}
+                placeholder="Select a Size"
+                source={sourceSize}
+                onChange={(value: number) => { handleState('sizeId', value) }}
+              />
+            </Form.Item>
+            <Form.Item
+              name="price"
+              label="Price"
+              rules={[{ required: false }]}
+            >
+              <CompInput placeholder="Price" onChange={(e: any) => { handleState('price', e.target.value) }} />
+            </Form.Item>
+            <Form.Item>
+              <div className="space-button-form">
+                <Button type="primary" htmlType="submit">
+                  Save
             </Button>
-              <Button htmlType="button" onClick={onClear}>
-                Clear
+                <Button htmlType="button" onClick={onClear}>
+                  Clear
             </Button>
-              <Button htmlType="button" onClick={onCancel}>
-                Cancel
+                <Button htmlType="button" onClick={onCancel}>
+                  Cancel
             </Button>
-            </div>
-          </Form.Item>
-        </Form>
-      </Card>
+              </div>
+            </Form.Item>
+          </Form>
+        </Card>
+      </Header>
     </BlockUi>
   )
 }

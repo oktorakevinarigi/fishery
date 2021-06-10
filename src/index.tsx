@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import './App.scss';
-import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
+
+import 'antd/dist/antd.css';
+import "react-block-ui/style.css";
+import './index.scss';
+import './App.scss';
 
 ReactDOM.render(
   <React.StrictMode>
